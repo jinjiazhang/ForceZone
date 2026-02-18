@@ -24,11 +24,9 @@ Component({
       wx.setStorageSync('unlock_hidden_games', true)
     },
 
-    // 重新锁定（用于测试）
+    // 重新锁定
     lockHiddenGames() {
-      wx.vibrateShort({ type: 'medium' })
       wx.removeStorageSync('unlock_hidden_games')
-      wx.showToast({ title: '已重新锁定', icon: 'none' })
     }
   }
 })
