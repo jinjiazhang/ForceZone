@@ -88,7 +88,7 @@
       </view>
 
       <!-- 2048 -->
-      <view class="game-card game2048-card" bindtap="navigateToGame2048">
+      <view class="game-card game2048-card" bindtap="navigateToGame2048" wx:if="{{showHiddenGames}}">
         <view class="card-bg-decoration"></view>
         <view class="card-content">
           <view class="icon-box">

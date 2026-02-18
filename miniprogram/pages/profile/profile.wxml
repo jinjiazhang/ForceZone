@@ -6,7 +6,7 @@
   </view>
    
   <view class="content-area">
-    <view class="dev-card">
+    <view class="dev-card" bindtap="lockHiddenGames" bindlongpress="unlockHiddenGames">
       <view class="dev-info-row">
         <text class="label">联系邮箱</text>
         <text class="value">jinjiazh@qq.com</text>

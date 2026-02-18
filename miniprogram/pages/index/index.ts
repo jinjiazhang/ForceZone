@@ -2,9 +2,30 @@
 export { }
 
 Component({
-  data: {},
+  data: {
+    showHiddenGames: false
+  },
+
+  lifetimes: {
+    attached() {
+      // 清除之前测试残留的数据（验证后可删除此行）
+      // wx.removeStorageSync('unlock_hidden_games')
+      this.checkHiddenGamesVisibility()
+    }
+  },
+
+  pageLifetimes: {
+    show() {
+      this.checkHiddenGamesVisibility()
+    }
+  },
 
   methods: {
+    checkHiddenGamesVisibility() {
+      const unlocked = wx.getStorageSync('unlock_hidden_games')
+      this.setData({ showHiddenGames: !!unlocked })
+    },
+
     // 分享给好友
     onShareAppMessage() {
       return {
@@ -84,3 +105,4 @@ Component({
     }
   }
 })
+
