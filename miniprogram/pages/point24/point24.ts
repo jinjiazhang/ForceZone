@@ -49,6 +49,7 @@ Page({
         selectedCard: null as number | null,
         selectedOp: null as string | null,
         timer: 0,
+        timerDisplay: '0.00',
         isPlaying: false,
         solved: 0,
         total: 0,
@@ -145,11 +146,18 @@ Page({
         return value % 1 === 0 ? String(value) : value.toFixed(2)
     },
 
-    // 计时器
+    // 计时器（10ms精度）
+    timerStartTime: 0 as number,
+
     startTimer() {
+        this.timerStartTime = Date.now()
         this.timerInterval = setInterval(() => {
-            this.setData({ timer: this.data.timer + 1 })
-        }, 1000)
+            const elapsed = (Date.now() - this.timerStartTime) / 1000
+            this.setData({
+                timer: elapsed,
+                timerDisplay: elapsed.toFixed(2)
+            })
+        }, 10)
     },
 
     stopTimer() {
@@ -269,7 +277,8 @@ Page({
 
             if (Math.abs(finalValue - 24) < 0.0001) {
                 // 成功！
-                const time = this.data.timer
+                const elapsed = (Date.now() - this.timerStartTime) / 1000
+                const time = parseFloat(elapsed.toFixed(2))
                 let bestTime = this.data.bestTime
 
                 if (bestTime === 0 || time < bestTime) {
@@ -280,7 +289,7 @@ Page({
                 this.setData({
                     showResult: true,
                     resultSuccess: true,
-                    resultMessage: `太棒了！用时 ${time} 秒`,
+                    resultMessage: `太棒了！用时 ${time.toFixed(2)} 秒`,
                     solved: this.data.solved + 1,
                     isPlaying: false,
                     bestTime
