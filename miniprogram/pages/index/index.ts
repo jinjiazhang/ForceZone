@@ -83,6 +83,13 @@ Component({
       })
     },
 
+    // 导航到24点游戏
+    navigateToPoint24() {
+      wx.navigateTo({
+        url: '../point24/point24'
+      })
+    },
+
     // 导航到五子棋游戏
     navigateToGomoku() {
       wx.navigateTo({

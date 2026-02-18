@@ -14,6 +14,7 @@
     "pages/reaction/reaction",
     "pages/memory/memory",
     "pages/nback/nback",
+    "pages/point24/point24",
     "pages/logs/logs"
   ],
   "window": {

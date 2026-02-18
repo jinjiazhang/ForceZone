@@ -150,6 +150,26 @@
         </view>
       </view>
 
+      <!-- 24点 Card -->
+      <view class="game-card point24-card" bindtap="navigateToPoint24" hover-class="card-hover">
+        <view class="card-bg-decoration"></view>
+        <view class="card-content">
+          <view class="icon-box">
+             <view class="point24-icon-graphic">
+               <view class="p24-text">24</view>
+               <view class="p24-badge"></view>
+             </view>
+          </view>
+          <view class="text-box">
+            <text class="game-name">24点</text>
+            <text class="game-desc">四则运算，凑出24</text>
+          </view>
+        </view>
+        <view class="play-arrow-btn">
+          <text class="arrow">></text>
+        </view>
+      </view>
+
       <!-- N-Back Card -->
       <view class="game-card nback-card" bindtap="navigateToNBack" hover-class="card-hover">
         <view class="card-bg-decoration"></view>

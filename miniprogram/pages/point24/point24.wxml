@@ -1,0 +1,110 @@
+<!--point24.wxml-->
+<view class="page-container">
+  <!-- 顶部导航栏 -->
+  <!-- 顶部功能区 -->
+  <view class="top-bar">
+    <view class="top-actions">
+      <view class="icon-btn" bindtap="onReset">
+        <text class="icon-text">↻</text>
+      </view>
+      <view class="icon-btn skip-btn" bindtap="startGame">
+        <text class="skip-icon">🗑</text>
+        <text class="skip-count">{{3}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 计时器 -->
+  <view class="timer-bar" wx:if="{{isPlaying}}">
+    <view class="timer-badge">
+      <text class="timer-icon">⏱</text>
+      <text class="timer-value">{{timer}}.0</text>
+    </view>
+  </view>
+
+  <!-- 游戏主区域 -->
+  <view class="game-area">
+    <!-- 开始前的欢迎界面 -->
+    <view class="welcome-section" wx:if="{{!isPlaying && !showResult}}">
+      <view class="welcome-card">
+        <text class="welcome-title">24</text>
+        <view class="welcome-badge"></view>
+      </view>
+      <button class="start-btn" bindtap="startGame">开始训练</button>
+    </view>
+
+    <!-- 游戏中的倒计时提示 -->
+    <view class="countdown-text" wx:if="{{isPlaying && countdownText}}">
+      <text class="{{countdownText === 'Go!' ? 'go' : ''}}">{{countdownText}}</text>
+    </view>
+
+    <!-- 数字卡片区 -->
+    <view class="cards-grid" wx:if="{{isPlaying && !countdownText}}">
+      <block wx:for="{{cards}}" wx:key="id">
+        <view 
+          class="number-card {{selectedCard === item.id ? 'selected' : ''}}"
+          wx:if="{{item.visible}}"
+          bindtap="onCardTap"
+          data-id="{{item.id}}"
+        >
+          <text class="number-value">{{item.display}}</text>
+        </view>
+      </block>
+    </view>
+
+    <!-- 运算符区 -->
+    <view class="operator-section" wx:if="{{isPlaying && !countdownText}}">
+      <view 
+        class="op-btn {{selectedOp === '+' ? 'selected' : ''}}" 
+        bindtap="onOperatorTap" 
+        data-op="+"
+      >+</view>
+      <view 
+        class="op-btn {{selectedOp === '-' ? 'selected' : ''}}" 
+        bindtap="onOperatorTap" 
+        data-op="-"
+      >−</view>
+      <view 
+        class="op-btn {{selectedOp === '*' ? 'selected' : ''}}" 
+        bindtap="onOperatorTap" 
+        data-op="*"
+      >×</view>
+      <view 
+        class="op-btn {{selectedOp === '/' ? 'selected' : ''}}" 
+        bindtap="onOperatorTap" 
+        data-op="/"
+      >÷</view>
+    </view>
+  </view>
+
+  <!-- 底部提示按钮 -->
+  <view class="footer-section" wx:if="{{isPlaying && !countdownText}}">
+    <view class="hint-btn" bindtap="onShowHint">
+      <text>💡 提示</text>
+    </view>
+    <view class="undo-btn" bindtap="onUndo">
+      <text>↩ 撤销</text>
+    </view>
+  </view>
+
+  <!-- 提示弹窗 -->
+  <view class="modal-overlay" wx:if="{{showSolution}}" bindtap="onHideHint">
+    <view class="modal-content" catchtap="">
+      <view class="modal-title">💡 解法提示</view>
+      <view class="solution-text">{{solution}}</view>
+      <view class="modal-btn" bindtap="onHideHint">知道了</view>
+    </view>
+  </view>
+
+  <!-- 结果弹窗 -->
+  <view class="modal-overlay" wx:if="{{showResult}}" bindtap="onCloseResult">
+    <view class="modal-content result-modal {{resultSuccess ? 'success' : 'fail'}}" catchtap="">
+      <view class="result-icon">{{resultSuccess ? '🎉' : '😅'}}</view>
+      <view class="result-message">{{resultMessage}}</view>
+      <view class="modal-actions">
+        <view class="modal-btn" bindtap="onCloseResult">确定</view>
+        <view class="modal-btn primary" bindtap="startGame">{{resultSuccess ? '下一题' : '再试一次'}}</view>
+      </view>
+    </view>
+  </view>
+</view>
