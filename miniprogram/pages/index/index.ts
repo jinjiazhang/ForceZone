@@ -77,11 +77,7 @@ Component({
       })
     },
 
-    navigateToNBack() {
-      wx.navigateTo({
-        url: '../nback/nback'
-      })
-    },
+
 
     // 导航到24点游戏
     navigateToPoint24() {
