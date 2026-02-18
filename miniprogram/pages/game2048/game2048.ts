@@ -32,10 +32,51 @@ Page({
     nextTileId: 1,
 
     onLoad() {
-        this.initGame()
         // 读取最高分
         const bestScore = wx.getStorageSync('2048_best_score') || 0
         this.setData({ bestScore })
+
+        // 尝试恢复游戏进度
+        const savedState = wx.getStorageSync('2048_game_state')
+        if (savedState) {
+            this.restoreGameState(savedState)
+        } else {
+            this.initGame()
+        }
+    },
+
+    onUnload() {
+        this.saveGameState()
+    },
+
+    onHide() {
+        this.saveGameState()
+    },
+
+    saveGameState() {
+        const state = {
+            tiles: this.data.tiles,
+            score: this.data.score,
+            gameOver: this.data.gameOver,
+            gameWon: this.data.gameWon,
+            keepPlaying: this.data.keepPlaying,
+            history: this.data.history,
+            nextTileId: this.nextTileId
+        }
+        wx.setStorageSync('2048_game_state', state)
+    },
+
+    restoreGameState(state: any) {
+        if (!state) return
+        this.nextTileId = state.nextTileId || 1
+        this.setData({
+            tiles: state.tiles || [],
+            score: state.score || 0,
+            gameOver: state.gameOver || false,
+            gameWon: state.gameWon || false,
+            keepPlaying: state.keepPlaying || false,
+            history: state.history || []
+        })
     },
 
     onShareAppMessage() {
@@ -54,7 +95,8 @@ Page({
             scoreAdded: 0,
             gameOver: false,
             gameWon: false,
-            keepPlaying: false
+            keepPlaying: false,
+            history: []
         })
 
         this.addRandomTile()
@@ -62,7 +104,7 @@ Page({
     },
 
     restartGame() {
-        this.setData({ history: [] })
+        wx.removeStorageSync('2048_game_state')
         this.initGame()
     },
 
