@@ -24,7 +24,7 @@ page {
 
 .presets-tabs {
   flex: 1;
-  height: 70rpx;
+  height: 90rpx;
   width: 0; /* needed for flex child scroll-view to work properly */
 }
 
@@ -38,9 +38,9 @@ page {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 12rpx 36rpx;
+  padding: 16rpx 36rpx;
   background: #F0F2F5;
-  border-radius: 36rpx;
+  border-radius: 40rpx;
   margin-right: 20rpx;
   white-space: nowrap;
   transition: all 0.3s ease;
@@ -99,8 +99,10 @@ page {
 
 .add-preset-btn text {
   font-size: 40rpx;
-  line-height: 1;
-  margin-top: -4rpx;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .add-preset-btn:active {
@@ -134,8 +136,11 @@ page {
   font-size: 32rpx;
   color: #333;
   background: #F8F9FA;
-  padding: 20rpx;
+  padding: 24rpx 20rpx;
   border-radius: 12rpx;
+  min-height: 80rpx;
+  line-height: 1.5;
+  box-sizing: border-box;
 }
 
 .options-section {
@@ -177,6 +182,8 @@ page {
   border-radius: 16rpx;
   padding: 16rpx;
   margin-bottom: 20rpx;
+  min-height: 110rpx;
+  box-sizing: border-box;
 }
 
 .option-index {
@@ -194,13 +201,14 @@ page {
   align-items: center;
   background: #fff;
   border-radius: 12rpx;
-  padding: 10rpx 20rpx;
+  padding: 20rpx;
 }
 
 .option-name-input {
   flex: 1;
   font-size: 30rpx;
   color: #333;
+  min-height: 50rpx;
 }
 
 .weight-control {
@@ -225,7 +233,8 @@ page {
   text-align: center;
   background: #F0F2F5;
   border-radius: 8rpx;
-  padding: 4rpx;
+  padding: 8rpx 4rpx;
+  min-height: 48rpx;
 }
 
 .delete-option-btn {
@@ -252,12 +261,16 @@ page {
 }
 
 .add-option-btn {
-  width: 100%;
+  width: fit-content;
   background: rgba(74, 144, 226, 0.1);
   color: #4A90E2;
   font-size: 30rpx;
   border-radius: 16rpx;
   border: 2rpx dashed rgba(74, 144, 226, 0.4);
+  padding: 24rpx 80rpx;
+  line-height: normal;
+  white-space: nowrap;
+  margin: 0 auto;
 }
 
 .add-option-btn::after {
@@ -268,16 +281,22 @@ page {
   padding: 20rpx 40rpx calc(40rpx + env(safe-area-inset-bottom));
   background: #fff;
   box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: center;
 }
 
 .start-wheel-btn {
+  width: fit-content;
   background: linear-gradient(135deg, #FF9966, #FF5E62);
   color: white;
   border-radius: 50rpx;
   font-size: 36rpx;
   font-weight: bold;
   box-shadow: 0 10rpx 20rpx rgba(255, 94, 98, 0.3);
-  padding: 8rpx 0;
+  padding: 24rpx 100rpx;
+  line-height: normal;
+  white-space: nowrap;
+  margin: 0;
 }
 
 .start-wheel-btn::after {

@@ -1,11 +1,11 @@
 /* pages/lucky-wheel/lucky-wheel.wxss */
 page {
   background-color: #F8F9FA;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .container {
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,6 +40,7 @@ page {
   justify-content: center;
   align-items: center;
   margin-bottom: 80rpx;
+  flex-shrink: 0;
 }
 
 .wheel-disk {
@@ -78,25 +79,27 @@ page {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 260rpx; /* Matches roughly radius minus center */
-  height: 40rpx;
-  margin-top: -20rpx;
+  width: 250rpx; /* Radius minus center */
+  height: 100rpx;
+  margin-top: -50rpx;
   transform-origin: 0 50%;
   display: flex;
   justify-content: flex-end; /* Text will be pushed towards outer edge */
   align-items: center;
   padding-right: 20rpx;
+  box-sizing: border-box;
 }
 
 .wheel-text {
-  font-size: 28rpx;
+  font-size: 26rpx;
   color: white;
   font-weight: bold;
   text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.3);
   white-space: nowrap;
-  max-width: 180rpx;
+  max-width: 200rpx;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: normal;
 }
 
 .wheel-pointer {
@@ -140,15 +143,17 @@ page {
 }
 
 .spin-btn {
-  width: 80%;
+  width: fit-content;
   background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   color: white;
   border-radius: 50rpx;
   font-size: 40rpx;
   font-weight: bold;
-  padding: 12rpx 0;
+  padding: 24rpx 100rpx;
   box-shadow: 0 10rpx 20rpx rgba(0, 242, 254, 0.4);
   transition: all 0.3s;
+  white-space: nowrap;
+  line-height: normal;
 }
 
 .spin-btn::after {
@@ -222,12 +227,16 @@ page {
 }
 
 .result-btn {
+  width: fit-content;
   background: #F0F2F5;
   color: #333;
   border-radius: 40rpx;
   font-size: 32rpx;
   font-weight: bold;
-  padding: 4rpx 0;
+  padding: 16rpx 80rpx;
+  margin: 0 auto;
+  line-height: normal;
+  white-space: nowrap;
 }
 
 .result-btn::after {
