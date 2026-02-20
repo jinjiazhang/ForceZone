@@ -56,12 +56,7 @@ Component({
       })
     },
 
-    // 导航到2048游戏
-    navigateToGame2048() {
-      wx.navigateTo({
-        url: '../game2048/game2048'
-      })
-    },
+
 
     // 导航到反应测试
     navigateToReaction() {
