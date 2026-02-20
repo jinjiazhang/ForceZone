@@ -183,6 +183,17 @@
     opacity: 0.15;
   }
 
+  .lucky-wheel-card .card-bg-decoration {
+    position: absolute;
+    width: 150rpx;
+    height: 150rpx;
+    background: linear-gradient(135deg, #ff9a9e, #fecfef);
+    border-radius: 50%;
+    right: -20rpx;
+    bottom: -40rpx;
+    opacity: 0.2;
+  }
+
   /* 24点 Icon Styles */
   .point24-icon-graphic {
     width: 100%;
@@ -211,6 +222,41 @@
     bottom: 24rpx;
     right: 20rpx;
     border: 2rpx solid #4cd9a4;
+  }
+
+  /* Lucky Wheel Icon Styles */
+  .lucky-wheel-icon-graphic {
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3rpx solid #e0e0e0;
+  }
+
+  .lw-sector {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    transform-origin: 100% 100%;
+  }
+
+  .lw-sector.s1 { background: #FF9966; transform: rotate(0deg) skew(0deg); }
+  .lw-sector.s2 { background: #4facfe; transform: rotate(90deg) skew(0deg); }
+  .lw-sector.s3 { background: #66bb6a; transform: rotate(180deg) skew(0deg); }
+  .lw-sector.s4 { background: #f1c40f; transform: rotate(270deg) skew(0deg); }
+
+  .lw-center {
+    width: 25%;
+    height: 25%;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 2;
+    box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.2);
   }
 
 .card-content {

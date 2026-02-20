@@ -170,7 +170,28 @@
         </view>
       </view>
 
-
+      <!-- 幸运转盘 Card -->
+      <view class="game-card lucky-wheel-card" bindtap="navigateToLuckyWheelMenu" hover-class="card-hover">
+        <view class="card-bg-decoration"></view>
+        <view class="card-content">
+          <view class="icon-box">
+             <view class="lucky-wheel-icon-graphic">
+               <view class="lw-sector s1"></view>
+               <view class="lw-sector s2"></view>
+               <view class="lw-sector s3"></view>
+               <view class="lw-sector s4"></view>
+               <view class="lw-center"></view>
+             </view>
+          </view>
+          <view class="text-box">
+            <text class="game-name">幸运转盘</text>
+            <text class="game-desc">纠结克星，转出决定</text>
+          </view>
+        </view>
+        <view class="play-arrow-btn">
+          <text class="arrow">></text>
+        </view>
+      </view>
 
     </view>
   </view>

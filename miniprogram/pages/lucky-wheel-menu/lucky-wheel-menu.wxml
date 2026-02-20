@@ -1,0 +1,80 @@
+<!--pages/lucky-wheel-menu/lucky-wheel-menu.wxml-->
+<view class="container">
+  <!-- Presets Header Tabs -->
+  <view class="presets-header">
+    <scroll-view scroll-x class="presets-tabs" enable-flex enhanced show-scrollbar="{{false}}">
+      <view class="tabs-inner">
+        <view 
+          class="tab-item {{currentPresetIndex === index ? 'active' : ''}}" 
+          wx:for="{{presets}}" 
+          wx:key="id"
+          bindtap="onSelectPreset" 
+          data-index="{{index}}"
+        >
+          <text class="tab-title">{{item.title}}</text>
+          <view class="delete-preset-hitbox" catchtap="onDeletePreset" data-index="{{index}}" wx:if="{{presets.length > 1}}">
+            <text class="delete-preset-icon">×</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="add-preset-btn" bindtap="onAddPreset">
+      <text>+</text>
+    </view>
+  </view>
+
+  <view class="main-content" wx:if="{{presets.length > 0 && presets[currentPresetIndex]}}">
+    <!-- Preset Title Editor -->
+    <view class="preset-name-section">
+      <text class="section-label">转盘主题</text>
+      <input class="preset-title-input" value="{{presets[currentPresetIndex].title}}" bindinput="onInputPresetTitle" placeholder="输入转盘主题" />
+    </view>
+
+    <!-- Options Section -->
+    <view class="options-section">
+      <view class="options-header">
+        <text class="section-label">选项配置</text>
+        <text class="hint-text">权重越大，抽中概率越高</text>
+      </view>
+
+      <scroll-view scroll-y class="options-scroll">
+        <view class="option-list">
+          <view class="option-item" wx:for="{{presets[currentPresetIndex].options}}" wx:key="id">
+            <view class="option-index">{{index + 1}}</view>
+            <view class="option-main">
+              <input class="option-name-input" value="{{item.name}}" bindinput="onInputOptionName" data-index="{{index}}" placeholder="选项名称" maxlength="15" />
+              <view class="weight-control">
+                <text class="weight-label">权重</text>
+                <input type="number" class="weight-input" value="{{item.weight}}" bindinput="onInputOptionWeight" bindblur="onBlurOptionWeight" data-index="{{index}}" />
+              </view>
+            </view>
+            <view class="delete-option-btn" bindtap="onDeleteOption" data-index="{{index}}">
+              <text>×</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="add-option-wrapper">
+          <button class="add-option-btn" bindtap="onAddOption">+ 添加新选项</button>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- Bottom Action -->
+  <view class="bottom-action">
+    <button class="start-wheel-btn" bindtap="onEnterWheel">开始决定！</button>
+  </view>
+</view>
+
+<!-- Add Preset Modal -->
+<view class="modal-mask" wx:if="{{showAddPresetModal}}">
+  <view class="modal-content">
+    <view class="modal-title">新增预设主题</view>
+    <input class="modal-input" placeholder="例如：周末去哪玩" value="{{newPresetName}}" bindinput="onInputNewPresetName" auto-focus />
+    <view class="modal-actions">
+      <view class="modal-btn cancel" bindtap="onCancelAddPreset">取消</view>
+      <view class="modal-btn confirm" bindtap="onConfirmAddPreset">确定</view>
+    </view>
+  </view>
+</view>

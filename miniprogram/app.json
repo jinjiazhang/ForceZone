@@ -14,6 +14,8 @@
     "pages/reaction/reaction",
     "pages/memory/memory",
     "pages/point24/point24",
+    "pages/lucky-wheel-menu/lucky-wheel-menu",
+    "pages/lucky-wheel/lucky-wheel",
     "pages/logs/logs"
   ],
   "window": {

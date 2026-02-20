@@ -1,0 +1,235 @@
+/* pages/lucky-wheel/lucky-wheel.wxss */
+page {
+  background-color: #F8F9FA;
+  height: 100vh;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 80rpx;
+}
+
+.title {
+  font-size: 56rpx;
+  font-weight: 800;
+  color: #2C3E50;
+  display: block;
+  margin-bottom: 16rpx;
+  text-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+
+.subtitle {
+  font-size: 30rpx;
+  color: #7F8C8D;
+}
+
+.wheel-container {
+  position: relative;
+  width: 600rpx;
+  height: 600rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 80rpx;
+}
+
+.wheel-disk {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20rpx 40rpx rgba(0,0,0,0.15), inset 0 0 0 10rpx rgba(255,255,255,0.2);
+  border: 8rpx solid white;
+}
+
+.wheel-center-decoration {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100rpx;
+  height: 100rpx;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.wheel-texts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.wheel-text-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260rpx; /* Matches roughly radius minus center */
+  height: 40rpx;
+  margin-top: -20rpx;
+  transform-origin: 0 50%;
+  display: flex;
+  justify-content: flex-end; /* Text will be pushed towards outer edge */
+  align-items: center;
+  padding-right: 20rpx;
+}
+
+.wheel-text {
+  font-size: 28rpx;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.3);
+  white-space: nowrap;
+  max-width: 180rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -30rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 4rpx 8rpx rgba(0,0,0,0.3));
+}
+
+.pointer-triangle {
+  width: 0;
+  height: 0;
+  border-left: 20rpx solid transparent;
+  border-right: 20rpx solid transparent;
+  border-top: 50rpx solid #FF5E62;
+  margin-bottom: -10rpx;
+  position: relative;
+  z-index: 2;
+}
+
+.pointer-dot {
+  width: 30rpx;
+  height: 30rpx;
+  background: #FF5E62;
+  border-radius: 50%;
+  border: 4rpx solid white;
+  position: absolute;
+  top: -10rpx;
+  z-index: 1;
+}
+
+.action-area {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.spin-btn {
+  width: 80%;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  border-radius: 50rpx;
+  font-size: 40rpx;
+  font-weight: bold;
+  padding: 12rpx 0;
+  box-shadow: 0 10rpx 20rpx rgba(0, 242, 254, 0.4);
+  transition: all 0.3s;
+}
+
+.spin-btn::after {
+  display: none;
+}
+
+.spin-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 6rpx 10rpx rgba(0, 242, 254, 0.3);
+}
+
+.spin-btn.spinning {
+  background: #BDC3C7;
+  box-shadow: none;
+  color: #7F8C8D;
+  transform: none;
+}
+
+/* Modal */
+.result-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.result-content {
+  background: white;
+  border-radius: 40rpx;
+  padding: 60rpx 40rpx 40rpx;
+  width: 500rpx;
+  text-align: center;
+  position: relative;
+  animation: popUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popUp {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.result-ribbon {
+  position: absolute;
+  top: -30rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #FF9966, #FF5E62);
+  color: white;
+  padding: 10rpx 30rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  box-shadow: 0 4rpx 10rpx rgba(255, 94, 98, 0.3);
+}
+
+.result-name {
+  font-size: 56rpx;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 40rpx;
+  margin-top: 20rpx;
+}
+
+.result-btn {
+  background: #F0F2F5;
+  color: #333;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  padding: 4rpx 0;
+}
+
+.result-btn::after {
+  display: none;
+}

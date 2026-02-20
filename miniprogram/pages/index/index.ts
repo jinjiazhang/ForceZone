@@ -105,6 +105,13 @@ Component({
       wx.navigateTo({
         url: '../profile/profile'
       })
+    },
+
+    // 导航到幸运转盘
+    navigateToLuckyWheelMenu() {
+      wx.navigateTo({
+        url: '../lucky-wheel-menu/lucky-wheel-menu'
+      })
     }
   }
 })

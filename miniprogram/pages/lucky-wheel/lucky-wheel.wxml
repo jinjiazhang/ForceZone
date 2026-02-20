@@ -1,0 +1,50 @@
+<!--pages/lucky-wheel/lucky-wheel.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">{{title}}</text>
+    <text class="subtitle">转出你的天选答案</text>
+  </view>
+
+  <view class="wheel-container">
+    <!-- Pointer -->
+    <view class="wheel-pointer">
+      <view class="pointer-triangle"></view>
+      <view class="pointer-dot"></view>
+    </view>
+
+    <!-- The actual wheel -->
+    <view 
+      class="wheel-disk" 
+      style="background: {{gradientStyle}}; transform: rotate({{rotateDeg}}deg); transition: transform {{isSpinning ? '4s cubic-bezier(0.25, 0.1, 0.2, 1)' : '0s'}};"
+    >
+      <view class="wheel-center-decoration"></view>
+      <!-- Option texts -->
+      <view class="wheel-texts">
+        <block wx:for="{{slices}}" wx:key="id">
+          <view class="wheel-text-wrapper" style="transform: rotate({{item.midDeg - 90}}deg);">
+            <text class="wheel-text">{{item.name}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="action-area">
+    <button 
+      class="spin-btn {{isSpinning ? 'spinning' : ''}}" 
+      bindtap="onStartSpin"
+      disabled="{{isSpinning}}"
+    >
+      {{isSpinning ? '转动中...' : '开始转动'}}
+    </button>
+  </view>
+</view>
+
+<!-- Result Modal -->
+<view class="result-modal" wx:if="{{showResult}}" bindtap="closeResultModal">
+  <view class="result-content" catchtap="return">
+    <view class="result-ribbon">天选之选</view>
+    <view class="result-name">{{resultText}}</view>
+    <button class="result-btn" bindtap="closeResultModal">确定</button>
+  </view>
+</view>
