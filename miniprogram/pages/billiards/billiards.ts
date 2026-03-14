@@ -7,11 +7,11 @@ const MAX_POWER = 35;
 class Ball {
   x: number;
   y: number;
-  startY: number; // Store starting Y to calculate vertical displacement
-  vx: number = 0;
-  vy: number = 0;
+  startY: number; 
+  vx: number;
+  vy: number;
   color: string;
-  isMoving: boolean = false;
+  isMoving: boolean;
   lastX: number;
   lastY: number;
 
@@ -19,9 +19,12 @@ class Ball {
     this.x = x;
     this.y = y;
     this.startY = y;
+    this.vx = 0;
+    this.vy = 0;
+    this.color = color;
+    this.isMoving = false;
     this.lastX = x;
     this.lastY = y;
-    this.color = color;
   }
 
   update(canvasWidth: number, canvasHeight: number) {
@@ -57,7 +60,6 @@ class Ball {
     this.lastY = this.y;
   }
 
-  // Vertical distance from start line (absolute displacement)
   getVerticalDisplacement() {
     return Math.abs(this.y - this.startY);
   }
@@ -233,7 +235,6 @@ Page({
   },
 
   handleGameOver() {
-    // Determine winner based on vertical displacement from start line
     const v1 = Math.round(this.p1Ball?.getVerticalDisplacement() || 0);
     const v2 = Math.round(this.p2Ball?.getVerticalDisplacement() || 0);
     
