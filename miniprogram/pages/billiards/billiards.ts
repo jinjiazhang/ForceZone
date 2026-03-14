@@ -172,7 +172,11 @@ Page({
     if (this.p2Ball) this.p2Ball.update(this.canvasWidth, this.canvasHeight);
 
     if (this.data.p1Shooting && this.data.p2Shooting) {
-      if (!this.p1Ball?.isMoving && !this.p2Ball?.isMoving && !this.data.showResult) {
+      // Manual check to replace ?.
+      const p1StillMoving = this.p1Ball ? this.p1Ball.isMoving : false;
+      const p2StillMoving = this.p2Ball ? this.p2Ball.isMoving : false;
+      
+      if (!p1StillMoving && !p2StillMoving && !this.data.showResult) {
         setTimeout(() => {
           if (!this.data.showResult) this.handleGameOver();
         }, 800);
@@ -235,8 +239,9 @@ Page({
   },
 
   handleGameOver() {
-    const v1 = Math.round(this.p1Ball?.getVerticalDisplacement() || 0);
-    const v2 = Math.round(this.p2Ball?.getVerticalDisplacement() || 0);
+    // Determine winner based on vertical displacement from start line
+    const v1 = this.p1Ball ? Math.round(this.p1Ball.getVerticalDisplacement()) : 0;
+    const v2 = this.p2Ball ? Math.round(this.p2Ball.getVerticalDisplacement()) : 0;
     
     let winner = '平局';
     if (v1 > v2) winner = '玩家 1 (白球)';
