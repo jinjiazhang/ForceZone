@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="table-area">
+    <canvas type="2d" id="poolCanvas" class="pool-canvas"></canvas>
+  </view>
+
+  <!-- 左侧 P1 控制区 -->
+  <view class="side-control left" wx:if="{{!p1Shooting}}">
+    <view class="v-power-bar-container" wx:if="{{p1Pressing}}">
+      <view class="v-power-bar" style="height: {{p1PowerPercent}}%"></view>
+    </view>
+    <button class="side-circle-btn p1-btn" 
+            bindtouchstart="onP1Start" 
+            bindtouchend="onP1End">P1</button>
+  </view>
+
+  <!-- 右侧 P2 控制区 -->
+  <view class="side-control right" wx:if="{{!p2Shooting}}">
+    <view class="v-power-bar-container" wx:if="{{p2Pressing}}">
+      <view class="v-power-bar" style="height: {{p2PowerPercent}}%"></view>
+    </view>
+    <button class="side-circle-btn p2-btn" 
+            bindtouchstart="onP2Start" 
+            bindtouchend="onP2End">P2</button>
+  </view>
+
+  <!-- 结果展示 -->
+  <view class="overlay" wx:if="{{showResult}}">
+    <view class="result-box">
+      <view class="winner-text">{{winner}} 获得开球权！</view>
+      <view class="stats">
+        <view>P1 距离: {{p1Distance}}</view>
+        <view>P2 距离: {{p2Distance}}</view>
+      </view>
+      <button class="reset-btn" bindtap="resetGame">再来一次</button>
+    </view>
+  </view>
+</view>

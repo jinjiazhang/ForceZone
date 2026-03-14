@@ -170,6 +170,26 @@
         </view>
       </view>
 
+      <!-- 桌球开球 Card -->
+      <view class="game-card billiards-card" bindtap="navigateToBilliards" hover-class="card-hover">
+        <view class="card-bg-decoration"></view>
+        <view class="card-content">
+          <view class="icon-box">
+             <view class="billiards-icon-graphic">
+               <view class="b-ball white"></view>
+               <view class="b-ball red"></view>
+             </view>
+          </view>
+          <view class="text-box">
+            <text class="game-name">桌球争夺</text>
+            <text class="game-desc">双人蓄力，决定开球权</text>
+          </view>
+        </view>
+        <view class="play-arrow-btn">
+          <text class="arrow">></text>
+        </view>
+      </view>
+
       <!-- 幸运转盘 Card -->
       <view class="game-card lucky-wheel-card" bindtap="navigateToLuckyWheelMenu" hover-class="card-hover">
         <view class="card-bg-decoration"></view>

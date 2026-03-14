@@ -194,6 +194,49 @@
     opacity: 0.2;
   }
 
+  .billiards-card .card-bg-decoration {
+    position: absolute;
+    width: 150rpx;
+    height: 150rpx;
+    background: linear-gradient(135deg, #076324, #0d3b1b);
+    border-radius: 50%;
+    right: -20rpx;
+    bottom: -40rpx;
+    opacity: 0.15;
+  }
+
+  /* Billiards Icon Styles */
+  .billiards-icon-graphic {
+    width: 70%;
+    height: 70%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .b-ball {
+    width: 36rpx;
+    height: 36rpx;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: 2rpx 4rpx 8rpx rgba(0,0,0,0.2);
+  }
+
+  .b-ball.white {
+    background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+    top: 5rpx;
+    left: 5rpx;
+    z-index: 2;
+  }
+
+  .b-ball.red {
+    background: radial-gradient(circle at 30% 30%, #ff5e62, #900);
+    bottom: 5rpx;
+    right: 5rpx;
+    z-index: 1;
+  }
+
   /* 24点 Icon Styles */
   .point24-icon-graphic {
     width: 100%;

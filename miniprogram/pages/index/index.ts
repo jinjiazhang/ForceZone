@@ -42,6 +42,13 @@ Component({
       }
     },
 
+    // 导航到桌球决定开球权
+    navigateToBilliards() {
+      wx.navigateTo({
+        url: '../billiards/billiards'
+      })
+    },
+
     // 导航到象棋游戏
     navigateToXiangqi() {
       wx.navigateTo({
