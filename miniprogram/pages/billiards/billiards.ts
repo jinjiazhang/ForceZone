@@ -3,6 +3,7 @@ const BALL_RADIUS = 22;
 const FRICTION = 0.988; 
 const WALL_BOUNCE = 0.6; 
 const MAX_POWER = 35; 
+const AIM_LINE_LENGTH = 60;
 
 class Ball {
   x: number;
@@ -15,6 +16,12 @@ class Ball {
   lastX: number;
   lastY: number;
 
+  // Aiming properties
+  angle: number; // Current angle in radians
+  swingAngle: number; // 0 to 1 for oscillation
+  swingSpeed: number;
+  isLocked: boolean;
+
   constructor(x: number, y: number, color: string) {
     this.x = x;
     this.y = y;
@@ -25,6 +32,11 @@ class Ball {
     this.isMoving = false;
     this.lastX = x;
     this.lastY = y;
+    
+    this.angle = -Math.PI / 2; // Default pointing up
+    this.swingAngle = 0;
+    this.swingSpeed = 0.05;
+    this.isLocked = false;
   }
 
   update(canvasWidth: number, canvasHeight: number) {
@@ -32,6 +44,14 @@ class Ball {
       this.vx = 0;
       this.vy = 0;
       this.isMoving = false;
+      
+      // Update swing if not moving and not locked
+      if (!this.isLocked) {
+        this.swingAngle += this.swingSpeed;
+        // Oscillate between -45 and 45 degrees around -90 (up)
+        const offset = Math.sin(this.swingAngle) * (Math.PI / 4);
+        this.angle = -Math.PI / 2 + offset;
+      }
       return;
     }
 
@@ -64,13 +84,20 @@ class Ball {
     return Math.abs(this.y - this.startY);
   }
 
-  draw(ctx: any) {
+  draw(ctx: any, isShooting: boolean) {
+    // Draw Aiming Arrow if not shooting and not moving
+    if (!isShooting && !this.isMoving) {
+      this.drawAiming(ctx);
+    }
+
+    // Ball Shadow
     ctx.beginPath();
     ctx.arc(this.x + 4, this.y + 4, BALL_RADIUS, 0, Math.PI * 2);
     ctx.fillStyle = 'rgba(0,0,0,0.3)';
     ctx.fill();
     ctx.closePath();
 
+    // Ball Body
     ctx.beginPath();
     ctx.arc(this.x, this.y, BALL_RADIUS, 0, Math.PI * 2);
     ctx.fillStyle = this.color;
@@ -93,6 +120,30 @@ class Ball {
     ctx.fillStyle = gradient;
     ctx.fill();
     ctx.closePath();
+  }
+
+  drawAiming(ctx: any) {
+    const targetX = this.x + Math.cos(this.angle) * AIM_LINE_LENGTH;
+    const targetY = this.y + Math.sin(this.angle) * AIM_LINE_LENGTH;
+
+    ctx.beginPath();
+    ctx.setLineDash([4, 4]);
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(targetX, targetY);
+    ctx.strokeStyle = this.isLocked ? 'rgba(255, 255, 0, 0.8)' : 'rgba(255, 255, 255, 0.5)';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Arrow Head
+    const headLen = 10;
+    const angle = this.angle;
+    ctx.beginPath();
+    ctx.moveTo(targetX, targetY);
+    ctx.lineTo(targetX - headLen * Math.cos(angle - Math.PI / 6), targetY - headLen * Math.sin(angle - Math.PI / 6));
+    ctx.moveTo(targetX, targetY);
+    ctx.lineTo(targetX - headLen * Math.cos(angle + Math.PI / 6), targetY - headLen * Math.sin(angle + Math.PI / 6));
+    ctx.stroke();
   }
 }
 
@@ -172,7 +223,6 @@ Page({
     if (this.p2Ball) this.p2Ball.update(this.canvasWidth, this.canvasHeight);
 
     if (this.data.p1Shooting && this.data.p2Shooting) {
-      // Manual check to replace ?.
       const p1StillMoving = this.p1Ball ? this.p1Ball.isMoving : false;
       const p2StillMoving = this.p2Ball ? this.p2Ball.isMoving : false;
       
@@ -196,12 +246,13 @@ Page({
     this.ctx.stroke();
     this.ctx.setLineDash([]);
 
-    if (this.p1Ball) this.p1Ball.draw(this.ctx);
-    if (this.p2Ball) this.p2Ball.draw(this.ctx);
+    if (this.p1Ball) this.p1Ball.draw(this.ctx, this.data.p1Shooting);
+    if (this.p2Ball) this.p2Ball.draw(this.ctx, this.data.p2Shooting);
   },
 
   onP1Start() {
     if (this.data.p1Shooting) return;
+    if (this.p1Ball) this.p1Ball.isLocked = true; // Lock direction on press
     this.setData({ p1Pressing: true, p1PowerPercent: 0 });
     let power = 0;
     this.p1PowerTimer = setInterval(() => {
@@ -215,12 +266,16 @@ Page({
     if (!this.data.p1Pressing) return;
     clearInterval(this.p1PowerTimer);
     const powerValue = (this.data.p1PowerPercent / 100) * MAX_POWER;
-    if (this.p1Ball) this.p1Ball.vy = -powerValue;
+    if (this.p1Ball) {
+      this.p1Ball.vx = Math.cos(this.p1Ball.angle) * powerValue;
+      this.p1Ball.vy = Math.sin(this.p1Ball.angle) * powerValue;
+    }
     this.setData({ p1Pressing: false, p1Shooting: true });
   },
 
   onP2Start() {
     if (this.data.p2Shooting) return;
+    if (this.p2Ball) this.p2Ball.isLocked = true; // Lock direction on press
     this.setData({ p2Pressing: true, p2PowerPercent: 0 });
     let power = 0;
     this.p2PowerTimer = setInterval(() => {
@@ -234,12 +289,14 @@ Page({
     if (!this.data.p2Pressing) return;
     clearInterval(this.p2PowerTimer);
     const powerValue = (this.data.p2PowerPercent / 100) * MAX_POWER;
-    if (this.p2Ball) this.p2Ball.vy = -powerValue;
+    if (this.p2Ball) {
+      this.p2Ball.vx = Math.cos(this.p2Ball.angle) * powerValue;
+      this.p2Ball.vy = Math.sin(this.p2Ball.angle) * powerValue;
+    }
     this.setData({ p2Pressing: false, p2Shooting: true });
   },
 
   handleGameOver() {
-    // Determine winner based on vertical displacement from start line
     const v1 = this.p1Ball ? Math.round(this.p1Ball.getVerticalDisplacement()) : 0;
     const v2 = this.p2Ball ? Math.round(this.p2Ball.getVerticalDisplacement()) : 0;
     
