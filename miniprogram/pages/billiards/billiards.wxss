@@ -19,17 +19,28 @@
   box-sizing: border-box;
 }
 
-.pool-canvas {
+/* 带有木质边框的球台框架 */
+.table-frame {
   height: 88vh; 
   width: calc(88vh / 1.83); 
   max-width: 85vw;
-  background-color: #076324;
-  border: 18rpx solid #3d230d;
+  border: 18rpx solid #3d230d; /* 边框在这里 */
   border-radius: 12rpx;
-  box-shadow: 0 20rpx 80rpx rgba(0,0,0,0.9), inset 0 0 60rpx rgba(0,0,0,0.6);
+  box-shadow: 0 20rpx 80rpx rgba(0,0,0,0.9);
+  position: relative;
+  overflow: hidden;
+  box-sizing: content-box; /* 确保边框向外扩展，内部空间纯净 */
 }
 
-/* Side Controls */
+/* 纯净的绿色桌面 Canvas */
+.pool-canvas {
+  width: 100%;
+  height: 100%;
+  background-color: #076324;
+  display: block;
+}
+
+/* Side Controls ... (保持原样) */
 .side-control {
   position: absolute;
   bottom: 120rpx;

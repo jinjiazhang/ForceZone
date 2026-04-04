@@ -1,6 +1,9 @@
 <view class="container">
   <view class="table-area">
-    <canvas type="2d" id="poolCanvas" class="pool-canvas"></canvas>
+    <!-- 增加一个框架层，将边框从 canvas 移出 -->
+    <view class="table-frame">
+      <canvas type="2d" id="poolCanvas" class="pool-canvas"></canvas>
+    </view>
   </view>
 
   <!-- 左侧 P1 控制区 -->
