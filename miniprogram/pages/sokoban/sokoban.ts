@@ -574,7 +574,8 @@ Page({
   },
 
   autoMoveTo(targetRow: number, targetCol: number) {
-    const targetCell = this.data.map[targetRow]?.[targetCol]
+    const mapRow = this.data.map[targetRow]
+    const targetCell = mapRow ? mapRow[targetCol] : undefined
     // 目标如果是墙或者箱外等不可直接走到之地
     // 可走到之地只能是地板(2), 目标点(3), 玩家当前点(6,7)
     if (targetCell !== 2 && targetCell !== 3 && targetCell !== 6 && targetCell !== 7) return
