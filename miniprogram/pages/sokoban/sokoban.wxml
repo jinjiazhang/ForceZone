@@ -24,31 +24,31 @@
       <block wx:for="{{map}}" wx:for-item="row" wx:for-index="rowIdx" wx:key="rowIdx">
         <block wx:for="{{row}}" wx:for-item="cell" wx:for-index="colIdx" wx:key="colIdx">
           <!-- 空地 -->
-          <view wx:if="{{cell === 0}}" class="cell empty" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;"></view>
+          <view bindtap="onCellTap" data-row="{{rowIdx}}" data-col="{{colIdx}}" wx:if="{{cell === 0}}" class="cell empty" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;"></view>
           <!-- 墙 -->
-          <view wx:elif="{{cell === 1}}" class="cell wall" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;"></view>
+          <view bindtap="onCellTap" data-row="{{rowIdx}}" data-col="{{colIdx}}" wx:elif="{{cell === 1}}" class="cell wall" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;"></view>
           <!-- 地板 -->
-          <view wx:elif="{{cell === 2}}" class="cell floor" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;"></view>
+          <view bindtap="onCellTap" data-row="{{rowIdx}}" data-col="{{colIdx}}" wx:elif="{{cell === 2}}" class="cell floor" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;"></view>
           <!-- 目标点 -->
-          <view wx:elif="{{cell === 3}}" class="cell floor target" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
+          <view bindtap="onCellTap" data-row="{{rowIdx}}" data-col="{{colIdx}}" wx:elif="{{cell === 3}}" class="cell floor target" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
             <view class="target-diamond"></view>
           </view>
           <!-- 箱子 -->
-          <view wx:elif="{{cell === 4}}" class="cell floor box" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
+          <view bindtap="onCellTap" data-row="{{rowIdx}}" data-col="{{colIdx}}" wx:elif="{{cell === 4}}" class="cell floor box" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
             <view class="box-body">
               <view class="box-cross-h"></view>
               <view class="box-cross-v"></view>
             </view>
           </view>
           <!-- 箱子在目标点上 -->
-          <view wx:elif="{{cell === 5}}" class="cell floor box box-done" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
+          <view bindtap="onCellTap" data-row="{{rowIdx}}" data-col="{{colIdx}}" wx:elif="{{cell === 5}}" class="cell floor box box-done" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
             <view class="box-body">
               <view class="box-cross-h"></view>
               <view class="box-cross-v"></view>
             </view>
           </view>
           <!-- 玩家 -->
-          <view wx:elif="{{cell === 6}}" class="cell floor player" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
+          <view bindtap="onCellTap" data-row="{{rowIdx}}" data-col="{{colIdx}}" wx:elif="{{cell === 6}}" class="cell floor player" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
             <view class="player-body">
               <view class="player-eye left-eye"></view>
               <view class="player-eye right-eye"></view>
@@ -56,7 +56,7 @@
             </view>
           </view>
           <!-- 玩家在目标点上 -->
-          <view wx:elif="{{cell === 7}}" class="cell floor target player" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
+          <view bindtap="onCellTap" data-row="{{rowIdx}}" data-col="{{colIdx}}" wx:elif="{{cell === 7}}" class="cell floor target player" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
             <view class="target-diamond"></view>
             <view class="player-body">
               <view class="player-eye left-eye"></view>

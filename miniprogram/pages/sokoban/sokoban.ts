@@ -363,6 +363,10 @@ Page({
   touchStartX: 0,
   touchStartY: 0,
   isMoving: false,
+  lastTapTime: 0,
+  lastTapRow: -1,
+  lastTapCol: -1,
+  stopAutoMove: false,
 
   onLoad(options: any) {
     const level = parseInt(options.level) || 1
@@ -553,8 +557,102 @@ Page({
     wx.navigateBack()
   },
 
+  onCellTap(e: any) {
+    const row = e.currentTarget.dataset.row
+    const col = e.currentTarget.dataset.col
+    const now = Date.now()
+    
+    // 双击判定时间为 300ms 且同一点
+    if (now - this.lastTapTime < 300 && this.lastTapRow === row && this.lastTapCol === col) {
+      this.autoMoveTo(row, col)
+      this.lastTapTime = 0
+    } else {
+      this.lastTapTime = now
+      this.lastTapRow = row
+      this.lastTapCol = col
+    }
+  },
+
+  autoMoveTo(targetRow: number, targetCol: number) {
+    const targetCell = this.data.map[targetRow]?.[targetCol]
+    // 目标如果是墙或者箱外等不可直接走到之地
+    // 可走到之地只能是地板(2), 目标点(3), 玩家当前点(6,7)
+    if (targetCell !== 2 && targetCell !== 3 && targetCell !== 6 && targetCell !== 7) return
+    
+    // 寻路
+    const path = this.findPath(this.playerRow, this.playerCol, targetRow, targetCol)
+    if (!path || path.length === 0) return
+    
+    this.stopAutoMove = false
+    this.executeAutoMove(path)
+  },
+
+  findPath(startRow: number, startCol: number, targetRow: number, targetCol: number): {dr: number, dc: number}[] | null {
+    const map = this.data.map
+    const rows = map.length
+    if (rows === 0) return null
+    const cols = Math.max(...map.map(r => r.length))
+    
+    const queue: {r: number, c: number, path: {dr: number, dc: number}[]}[] = []
+    const visited: boolean[][] = Array.from({length: rows}, () => Array(cols).fill(false))
+    
+    queue.push({r: startRow, c: startCol, path: []})
+    visited[startRow][startCol] = true
+    
+    const dirs = [
+      {dr: -1, dc: 0},
+      {dr: 1, dc: 0},
+      {dr: 0, dc: -1},
+      {dr: 0, dc: 1}
+    ]
+    
+    while (queue.length > 0) {
+      const {r, c, path} = queue.shift()!
+      
+      if (r === targetRow && c === targetCol) {
+        return path
+      }
+      
+      for (const dir of dirs) {
+        const nr = r + dir.dr
+        const nc = c + dir.dc
+        
+        if (nr >= 0 && nr < rows && nc >= 0 && nc < map[nr].length) {
+          if (!visited[nr][nc]) {
+            const cell = map[nr][nc]
+            if (cell === 2 || cell === 3 || cell === 6 || cell === 7) {
+              visited[nr][nc] = true
+              queue.push({r: nr, c: nc, path: [...path, dir]})
+            }
+          }
+        }
+      }
+    }
+    return null
+  },
+
+  executeAutoMove(path: {dr: number, dc: number}[]) {
+    if (path.length === 0 || this.data.showWin || this.stopAutoMove) return
+
+    // 如果正好处于动画锁定状态，稍后重试
+    if (this.isMoving) {
+      setTimeout(() => {
+        this.executeAutoMove(path)
+      }, 20)
+      return
+    }
+    
+    const step = path.shift()!
+    this.movePlayer(step.dr, step.dc)
+    
+    setTimeout(() => {
+      this.executeAutoMove(path)
+    }, 60)
+  },
+
   // 手势操作
   onTouchStart(e: any) {
+    this.stopAutoMove = true
     const touch = e.touches[0]
     this.touchStartX = touch.clientX
     this.touchStartY = touch.clientY
