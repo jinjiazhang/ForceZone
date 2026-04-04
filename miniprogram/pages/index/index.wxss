@@ -205,6 +205,61 @@
     opacity: 0.15;
   }
 
+  .sokoban-card .card-bg-decoration {
+    position: absolute;
+    width: 150rpx;
+    height: 150rpx;
+    background: linear-gradient(135deg, #D4A574, #8B6914);
+    border-radius: 50%;
+    right: -20rpx;
+    bottom: -40rpx;
+    opacity: 0.15;
+  }
+
+  /* Sokoban Icon Styles */
+  .sokoban-icon-graphic {
+    width: 70%;
+    height: 70%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sk-box {
+    width: 40rpx;
+    height: 40rpx;
+    background: linear-gradient(135deg, #E8C170, #D4A24C);
+    border: 2rpx solid #8B6914;
+    border-radius: 6rpx;
+    position: absolute;
+    top: 2rpx;
+    left: 4rpx;
+    box-shadow: inset 0 -3rpx 0 rgba(0,0,0,0.15);
+  }
+
+  .sk-box::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14rpx;
+    height: 14rpx;
+    border: 2rpx solid rgba(139, 105, 20, 0.4);
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .sk-target {
+    width: 20rpx;
+    height: 20rpx;
+    border: 3rpx solid #E74C3C;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 4rpx;
+    right: 6rpx;
+    background: rgba(231, 76, 60, 0.15);
+  }
+
   /* Billiards Icon Styles */
   .billiards-icon-graphic {
     width: 70%;

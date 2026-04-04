@@ -1,0 +1,94 @@
+<view class="container" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd">
+  <!-- 顶部信息栏 -->
+  <view class="top-bar">
+    <view class="level-info">
+      <text class="level-label">第 {{level}} 关</text>
+    </view>
+    <view class="steps-info">
+      <text class="steps-icon">👣</text>
+      <text class="steps-count">{{steps}}</text>
+    </view>
+    <view class="top-actions">
+      <view class="action-btn undo-btn" bindtap="onUndo">
+        <text class="action-icon">↩</text>
+      </view>
+      <view class="action-btn reset-btn" bindtap="onReset">
+        <text class="action-icon">⟳</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 游戏网格 -->
+  <view class="game-area">
+    <view class="grid-wrapper" style="width:{{gridWidth}}px; height:{{gridHeight}}px;">
+      <block wx:for="{{map}}" wx:for-item="row" wx:for-index="rowIdx" wx:key="rowIdx">
+        <block wx:for="{{row}}" wx:for-item="cell" wx:for-index="colIdx" wx:key="colIdx">
+          <!-- 空地 -->
+          <view wx:if="{{cell === 0}}" class="cell empty" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;"></view>
+          <!-- 墙 -->
+          <view wx:elif="{{cell === 1}}" class="cell wall" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;"></view>
+          <!-- 地板 -->
+          <view wx:elif="{{cell === 2}}" class="cell floor" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;"></view>
+          <!-- 目标点 -->
+          <view wx:elif="{{cell === 3}}" class="cell floor target" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
+            <view class="target-diamond"></view>
+          </view>
+          <!-- 箱子 -->
+          <view wx:elif="{{cell === 4}}" class="cell floor box" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
+            <view class="box-body">
+              <view class="box-cross-h"></view>
+              <view class="box-cross-v"></view>
+            </view>
+          </view>
+          <!-- 箱子在目标点上 -->
+          <view wx:elif="{{cell === 5}}" class="cell floor box box-done" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
+            <view class="box-body">
+              <view class="box-cross-h"></view>
+              <view class="box-cross-v"></view>
+            </view>
+          </view>
+          <!-- 玩家 -->
+          <view wx:elif="{{cell === 6}}" class="cell floor player" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
+            <view class="player-body">
+              <view class="player-eye left-eye"></view>
+              <view class="player-eye right-eye"></view>
+              <view class="player-mouth"></view>
+            </view>
+          </view>
+          <!-- 玩家在目标点上 -->
+          <view wx:elif="{{cell === 7}}" class="cell floor target player" style="width:{{cellSize}}px;height:{{cellSize}}px;left:{{colIdx*cellSize}}px;top:{{rowIdx*cellSize}}px;">
+            <view class="target-diamond"></view>
+            <view class="player-body">
+              <view class="player-eye left-eye"></view>
+              <view class="player-eye right-eye"></view>
+              <view class="player-mouth"></view>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+  </view>
+
+  <!-- 通关弹窗 -->
+  <view class="win-overlay" wx:if="{{showWin}}">
+    <view class="win-card">
+      <text class="win-emoji">🎉</text>
+      <text class="win-title">恭喜过关！</text>
+      <text class="win-steps">用了 {{steps}} 步完成</text>
+      <view class="win-actions">
+        <view class="win-btn secondary" bindtap="onReset">
+          <text>重新挑战</text>
+        </view>
+        <view class="win-btn primary" bindtap="onNextLevel" wx:if="{{!isLastLevel}}">
+          <text>下一关 →</text>
+        </view>
+        <view class="win-btn primary" bindtap="onBackToMenu" wx:if="{{isLastLevel}}">
+          <text>返回菜单</text>
+        </view>
+      </view>
+      <view class="win-btn-back" bindtap="onBackToMenu">
+        <text class="back-text">返回关卡选择</text>
+      </view>
+    </view>
+  </view>
+</view>

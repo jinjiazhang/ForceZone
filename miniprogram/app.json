@@ -17,6 +17,8 @@
     "pages/point24/point24",
     "pages/lucky-wheel-menu/lucky-wheel-menu",
     "pages/lucky-wheel/lucky-wheel",
+    "pages/sokoban-menu/sokoban-menu",
+    "pages/sokoban/sokoban",
     "pages/logs/logs"
   ],
   "window": {

@@ -87,6 +87,26 @@
 
       </view>
 
+      <!-- 推箱子 -->
+      <view class="game-card sokoban-card" bindtap="navigateToSokoban" hover-class="card-hover">
+        <view class="card-bg-decoration"></view>
+        <view class="card-content">
+          <view class="icon-box">
+            <view class="sokoban-icon-graphic">
+              <view class="sk-box"></view>
+              <view class="sk-target"></view>
+            </view>
+          </view>
+          <view class="text-box">
+            <text class="game-name">推箱子</text>
+            <text class="game-desc">移动箱子，挑战智力</text>
+          </view>
+        </view>
+        <view class="play-arrow-btn">
+          <text class="arrow">></text>
+        </view>
+      </view>
+
       <!-- 2048 -->
       <view class="game-card game2048-card" bindtap="navigateToGame2048" wx:if="{{showHiddenGames}}">
         <view class="card-bg-decoration"></view>

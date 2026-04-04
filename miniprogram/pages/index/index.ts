@@ -63,6 +63,13 @@ Component({
       })
     },
 
+    // 导航到推箱子
+    navigateToSokoban() {
+      wx.navigateTo({
+        url: '../sokoban-menu/sokoban-menu'
+      })
+    },
+
     // 导航到2048游戏
     navigateToGame2048() {
       wx.navigateTo({

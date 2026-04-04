@@ -1,0 +1,270 @@
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #FFF8F0 0%, #F5EDE3 100%);
+}
+
+/* Hero Header */
+.hero-header {
+  display: flex;
+  align-items: center;
+  padding: 48rpx 40rpx 40rpx;
+  background: white;
+  box-shadow: 0 8rpx 32rpx rgba(139, 90, 43, 0.08);
+  position: relative;
+}
+
+.hero-icon {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 28rpx;
+  background: linear-gradient(135deg, #D4A574, #B8860B);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 28rpx;
+  box-shadow: 0 8rpx 24rpx rgba(184, 134, 11, 0.3);
+}
+
+.sokoban-icon-lg {
+  width: 60%;
+  height: 60%;
+  position: relative;
+}
+
+.box-icon {
+  width: 48rpx;
+  height: 48rpx;
+  background: linear-gradient(135deg, #F5DEB3, #DEB887);
+  border: 3rpx solid #8B6914;
+  border-radius: 6rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: inset 0 -4rpx 0 rgba(0,0,0,0.15);
+}
+
+.box-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16rpx;
+  height: 16rpx;
+  border: 2rpx solid #8B6914;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.target-icon {
+  width: 24rpx;
+  height: 24rpx;
+  border: 4rpx solid #E74C3C;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(231, 76, 60, 0.15);
+}
+
+.hero-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-title {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #4A3520;
+  margin-bottom: 8rpx;
+}
+
+.hero-subtitle {
+  font-size: 26rpx;
+  color: #A0896C;
+}
+
+.progress-badge {
+  background: linear-gradient(135deg, #D4A574, #B8860B);
+  border-radius: 24rpx;
+  padding: 10rpx 24rpx;
+}
+
+.progress-text {
+  color: white;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+/* Section */
+.section {
+  padding: 32rpx 40rpx 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 24rpx;
+  gap: 16rpx;
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #4A3520;
+}
+
+.section-desc {
+  font-size: 24rpx;
+  color: #B0977E;
+}
+
+/* Level Grid */
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20rpx;
+}
+
+.level-card {
+  aspect-ratio: 1;
+  background: white;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.level-card:active:not(.locked) {
+  transform: scale(0.95);
+  box-shadow: 0 3rpx 10rpx rgba(0, 0, 0, 0.04);
+}
+
+.level-number {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: #5D4037;
+  line-height: 1;
+}
+
+.level-name {
+  font-size: 20rpx;
+  color: #A0896C;
+  margin-top: 4rpx;
+}
+
+.level-stars {
+  display: flex;
+  gap: 2rpx;
+  margin-top: 6rpx;
+}
+
+.star {
+  font-size: 16rpx;
+  color: #F5A623;
+}
+
+/* Cleared State */
+.level-card.cleared {
+  background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+  border: 2rpx solid #A5D6A7;
+}
+
+.level-card.cleared .level-number {
+  color: #2E7D32;
+}
+
+.cleared-badge {
+  position: absolute;
+  top: 6rpx;
+  right: 6rpx;
+  width: 28rpx;
+  height: 28rpx;
+  background: #4CAF50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check {
+  color: white;
+  font-size: 18rpx;
+  font-weight: 700;
+}
+
+/* Locked State */
+.level-card.locked {
+  background: #F0ECE8;
+}
+
+.level-card.locked .level-number,
+.level-card.locked .level-name {
+  opacity: 0;
+}
+
+.level-card.locked .level-stars {
+  opacity: 0.3;
+}
+
+.lock-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lock-icon {
+  font-size: 32rpx;
+  opacity: 0.5;
+}
+
+.bottom-space {
+  height: 80rpx;
+}
+
+/* iPad 适配 */
+@media (min-width: 768px) {
+  .hero-header {
+    padding: 36px 30px;
+  }
+
+  .hero-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 18px;
+    margin-right: 20px;
+  }
+
+  .hero-title { font-size: 30px; }
+  .hero-subtitle { font-size: 16px; }
+
+  .progress-badge {
+    padding: 6px 16px;
+    border-radius: 16px;
+  }
+
+  .progress-text { font-size: 18px; }
+
+  .section { padding: 24px 30px 0; }
+  .section-title { font-size: 22px; }
+  .section-desc { font-size: 14px; }
+
+  .level-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+  }
+
+  .level-card {
+    border-radius: 14px;
+  }
+
+  .level-number { font-size: 24px; }
+  .level-name { font-size: 12px; }
+  .star { font-size: 10px; }
+}
