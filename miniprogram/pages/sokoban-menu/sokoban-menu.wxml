@@ -16,16 +16,11 @@
     </view>
   </view>
 
-  <!-- 难度分区 -->
+  <!-- 全部关卡 -->
   <view class="section">
-    <view class="section-header">
-      <text class="section-title">🌱 入门</text>
-      <text class="section-desc">熟悉规则，轻松上手</text>
-    </view>
     <view class="level-grid">
       <view
         wx:for="{{levels}}"
-        wx:if="{{index < 10}}"
         wx:key="id"
         class="level-card {{item.cleared ? 'cleared' : ''}} {{item.locked ? 'locked' : ''}}"
         bindtap="onTapLevel"
@@ -33,70 +28,7 @@
         data-locked="{{item.locked}}"
       >
         <view class="level-number">{{item.id}}</view>
-        <view class="level-name">{{item.name}}</view>
-        <view class="level-stars">
-          <text wx:for="{{item.stars}}" wx:for-item="s" wx:key="*this" class="star">★</text>
-        </view>
-        <view class="cleared-badge" wx:if="{{item.cleared}}">
-          <text class="check">✓</text>
-        </view>
-        <view class="lock-overlay" wx:if="{{item.locked}}">
-          <text class="lock-icon">🔒</text>
-        </view>
-      </view>
-    </view>
-  </view>
-
-  <view class="section">
-    <view class="section-header">
-      <text class="section-title">🔥 进阶</text>
-      <text class="section-desc">开动脑筋，步步为营</text>
-    </view>
-    <view class="level-grid">
-      <view
-        wx:for="{{levels}}"
-        wx:if="{{index >= 10 && index < 20}}"
-        wx:key="id"
-        class="level-card {{item.cleared ? 'cleared' : ''}} {{item.locked ? 'locked' : ''}}"
-        bindtap="onTapLevel"
-        data-id="{{item.id}}"
-        data-locked="{{item.locked}}"
-      >
-        <view class="level-number">{{item.id}}</view>
-        <view class="level-name">{{item.name}}</view>
-        <view class="level-stars">
-          <text wx:for="{{item.stars}}" wx:for-item="s" wx:key="*this" class="star">★</text>
-        </view>
-        <view class="cleared-badge" wx:if="{{item.cleared}}">
-          <text class="check">✓</text>
-        </view>
-        <view class="lock-overlay" wx:if="{{item.locked}}">
-          <text class="lock-icon">🔒</text>
-        </view>
-      </view>
-    </view>
-  </view>
-
-  <view class="section">
-    <view class="section-header">
-      <text class="section-title">⚡ 挑战</text>
-      <text class="section-desc">高手过招，极限烧脑</text>
-    </view>
-    <view class="level-grid">
-      <view
-        wx:for="{{levels}}"
-        wx:if="{{index >= 20}}"
-        wx:key="id"
-        class="level-card {{item.cleared ? 'cleared' : ''}} {{item.locked ? 'locked' : ''}}"
-        bindtap="onTapLevel"
-        data-id="{{item.id}}"
-        data-locked="{{item.locked}}"
-      >
-        <view class="level-number">{{item.id}}</view>
-        <view class="level-name">{{item.name}}</view>
-        <view class="level-stars">
-          <text wx:for="{{item.stars}}" wx:for-item="s" wx:key="*this" class="star">★</text>
-        </view>
+        <view class="level-name">第{{item.id}}关</view>
         <view class="cleared-badge" wx:if="{{item.cleared}}">
           <text class="check">✓</text>
         </view>

@@ -204,7 +204,7 @@
 
 .level-card.locked .level-number,
 .level-card.locked .level-name {
-  opacity: 0;
+  opacity: 0.4;
 }
 
 .level-card.locked .level-stars {
@@ -213,14 +213,12 @@
 
 .lock-overlay {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 10rpx;
+  right: 10rpx;
 }
 
 .lock-icon {
-  font-size: 32rpx;
+  font-size: 24rpx;
   opacity: 0.5;
 }
 
